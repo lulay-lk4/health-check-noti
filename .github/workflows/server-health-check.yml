@@ -34,7 +34,7 @@ jobs:
       - name: Check Server Health
         id: check
         run: |
-          if curl -fs "${HEALTH_CHECK_URL}"; then
+          if curl -fs --connect-timeout 10 --max-time 15 "${HEALTH_CHECK_URL}"; then
             echo "status=UP" >> $GITHUB_OUTPUT
           else
             echo "status=DOWN" >> $GITHUB_OUTPUT
